@@ -1,11 +1,12 @@
-'use strict';
+"use strict"
 
-var assign = require('object-assign');
-
-hexo.config.archive_generator = assign({
-  per_page: typeof hexo.config.per_page === 'undefined' ? 10 : hexo.config.per_page,
-  yearly: true,
-  monthly: true
-}, hexo.config.archive_generator);
-
-hexo.extend.generator.register('archive', require('./lib/generator'));
+hexo.extend.generator.register('archive', function(locals){
+    
+    var posts = locals.posts.sort('-date');
+    
+  return {
+    path: 'archives/index.html',
+    data: posts,
+    layout: ['archive', 'index']
+  }
+});
